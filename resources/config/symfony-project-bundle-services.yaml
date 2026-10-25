@@ -1,0 +1,10 @@
+# Loaded by ProjectBundle. The message parameter comes from the validated
+# derafu_project configuration of the consuming application.
+services:
+    derafu_project.greeting:
+        class: Derafu\ProjectBundle\Service\GreetingService
+        arguments:
+            $message: '%derafu_project.message%'
+
+    Derafu\ProjectBundle\Service\GreetingService:
+        alias: derafu_project.greeting
