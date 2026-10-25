@@ -32,7 +32,7 @@ final class ServicesTest extends TestCase
         $container = new ContainerBuilder();
         $container->setParameter('derafu_project.message', 'A greeting from the consumer.');
         (new YamlFileLoader($container, new FileLocator(dirname(__DIR__, 2) . '/resources/config')))
-            ->load('project-bundle-services.yaml');
+            ->load('symfony-project-bundle-services.yaml');
 
         return $container;
     }
