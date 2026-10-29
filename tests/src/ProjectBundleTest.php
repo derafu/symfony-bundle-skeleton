@@ -14,6 +14,7 @@ namespace Derafu\TestsProjectBundle;
 
 use Derafu\ProjectBundle\ProjectBundle;
 use Derafu\ProjectBundle\Service\GreetingService;
+use Derafu\TestsProjectBundle\Fixture\GreetingConsumer;
 use Derafu\TestsProjectBundle\Fixture\Kernel;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -79,7 +80,7 @@ final class ProjectBundleTest extends TestCase
             $service = $kernel->getContainer()->get('test.greeting');
             self::assertInstanceOf(GreetingService::class, $service);
             self::assertSame('Hello from the project bundle.', $service->greet());
-            self::assertSame('Hello from the project bundle.', $kernel->getContainer()->getParameter('derafu_project.message'));
+            self::assertSame('Hello from the project bundle.', $kernel->getContainer()->getParameter('derafu.project.message'));
         } finally {
             $kernel->shutdown();
         }
@@ -93,7 +94,20 @@ final class ProjectBundleTest extends TestCase
             $service = $kernel->getContainer()->get('test.greeting');
             self::assertInstanceOf(GreetingService::class, $service);
             self::assertSame('A custom greeting.', $service->greet());
-            self::assertSame('A custom greeting.', $kernel->getContainer()->getParameter('derafu_project.message'));
+            self::assertSame('A custom greeting.', $kernel->getContainer()->getParameter('derafu.project.message'));
+        } finally {
+            $kernel->shutdown();
+        }
+    }
+
+    public function testAnApplicationConsumerReceivesThePrivateServiceByInterface(): void
+    {
+        $kernel = new Kernel($this->project, ['message' => 'A greeting from the consumer.']);
+        try {
+            $kernel->boot();
+            $consumer = $kernel->getContainer()->get(GreetingConsumer::class);
+            self::assertInstanceOf(GreetingConsumer::class, $consumer);
+            self::assertSame('A greeting from the consumer.', $consumer->render());
         } finally {
             $kernel->shutdown();
         }

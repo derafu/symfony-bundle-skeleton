@@ -12,8 +12,8 @@ declare(strict_types=1);
 
 namespace Derafu\TestsProjectBundle\Fixture;
 
+use Derafu\ProjectBundle\Contract\GreetingServiceInterface;
 use Derafu\ProjectBundle\ProjectBundle;
-use Derafu\ProjectBundle\Service\GreetingService;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -55,10 +55,10 @@ final class Kernel extends BaseKernel
         $loader->load(function (ContainerBuilder $container): void {
             $container->loadFromExtension('framework', ['secret' => 'bundle-test-secret']);
             $container->loadFromExtension('derafu_project', $this->bundleConfig);
-            // The package's own service and alias remain private. Only this
-            // application alias makes them reachable for the integration test.
-            $container->setAlias('test.greeting', GreetingService::class)->setPublic(true);
+            // The bundle service stays private; only this test entry point is public.
+            $container->setAlias('test.greeting', GreetingServiceInterface::class)->setPublic(true);
         });
+        $loader->load(__DIR__ . '/services.yaml');
     }
 
     /**

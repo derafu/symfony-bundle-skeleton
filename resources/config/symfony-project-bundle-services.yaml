@@ -1,10 +1,23 @@
 # Loaded by ProjectBundle. The message parameter comes from the validated
 # derafu_project configuration of the consuming application.
+#
+# Service conventions for bundles created from this template:
+# - Use the interface as the service ID, with class: for its implementation.
+# - Inject interface IDs; do not add concrete-class compatibility aliases.
+# - Keep services private unless direct container access is required.
+# - Name parameters derafu.<package>.<concept>[.<detail>], using dots between
+#   levels and lowercase snake_case within each segment.
+# - Keep the Symfony configuration alias separate from container parameters.
+# - Register collection members individually with tags and inject a tagged
+#   iterator, using priorities or indexing when the contract requires them.
+# - Reuse shared dependency services and contribute only the bundle's domain.
 services:
-    derafu_project.greeting:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Derafu\ProjectBundle\Contract\GreetingServiceInterface:
         class: Derafu\ProjectBundle\Service\GreetingService
         arguments:
-            $message: '%derafu_project.message%'
-
-    Derafu\ProjectBundle\Service\GreetingService:
-        alias: derafu_project.greeting
+            $message: '%derafu.project.message%'

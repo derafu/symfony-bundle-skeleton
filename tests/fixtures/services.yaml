@@ -1,0 +1,5 @@
+# Application consumer; the bundle service is loaded only by ProjectBundle.
+services:
+    Derafu\TestsProjectBundle\Fixture\GreetingConsumer:
+        autowire: true
+        public: true

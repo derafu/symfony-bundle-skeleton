@@ -12,10 +12,12 @@ declare(strict_types=1);
 
 namespace Derafu\ProjectBundle\Service;
 
+use Derafu\ProjectBundle\Contract\GreetingServiceInterface;
+
 /**
  * Example service whose message comes from the bundle configuration.
  */
-final readonly class GreetingService
+final readonly class GreetingService implements GreetingServiceInterface
 {
     /**
      * @param string $message Message configured by the consuming application.
@@ -25,7 +27,7 @@ final readonly class GreetingService
     }
 
     /**
-     * Returns the configured greeting.
+     * {@inheritDoc}
      */
     public function greet(): string
     {

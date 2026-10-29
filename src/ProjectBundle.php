@@ -52,6 +52,6 @@ final class ProjectBundle extends AbstractBundle
     public function loadExtension(array $config, ContainerConfigurator $configurator, ContainerBuilder $container): void
     {
         $configurator->import('../resources/config/symfony-project-bundle-services.yaml');
-        $configurator->parameters()->set('derafu_project.message', $config['message']);
+        $configurator->parameters()->set('derafu.project.message', $config['message']);
     }
 }
