@@ -58,7 +58,7 @@ final class Kernel extends BaseKernel
             // The bundle service stays private; only this test entry point is public.
             $container->setAlias('test.greeting', GreetingServiceInterface::class)->setPublic(true);
         });
-        $loader->load(__DIR__ . '/services.yaml');
+        $loader->load(dirname(__DIR__, 2) . '/fixtures/services.yaml');
     }
 
     /**

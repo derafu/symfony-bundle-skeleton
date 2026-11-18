@@ -21,8 +21,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Derafu\\TestsProjectBundle\\": "tests/src/",
-            "Derafu\\TestsProjectBundle\\Fixture\\": "tests/fixtures/"
+            "Derafu\\TestsProjectBundle\\": "tests/src/"
         }
     },
     "require": {
